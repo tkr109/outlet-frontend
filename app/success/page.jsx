@@ -74,9 +74,16 @@ export default function SuccessPage() {
             <div className="space-y-6 mb-10">
               {order.items.map((item, i) => (
                 <div key={i} className="flex justify-between items-center">
-                  <div>
-                    <p className="text-white font-semibold">{item.name}</p>
-                    <p className="text-xs text-on-surface-variant font-label">{item.qty} x {currency.format(item.price)}</p>
+                  <div className="flex items-center gap-4">
+                    {item.image && (
+                      <div className="w-12 h-12 rounded-[32px] overflow-hidden bg-surface-container-highest shrink-0">
+                        <img className="w-full h-full object-cover opacity-90" src={item.image} alt={item.name} />
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-white font-semibold">{item.name}</p>
+                      <p className="text-xs text-on-surface-variant font-label">{item.qty} x {currency.format(item.price)}</p>
+                    </div>
                   </div>
                   <p className="font-headline font-bold text-white">{currency.format(item.price * item.qty)}</p>
                 </div>
