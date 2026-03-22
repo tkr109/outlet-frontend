@@ -6,6 +6,7 @@ export default function BottomNav() {
   const pathname = usePathname();
   const isHome = pathname === '/';
   const isOrder = pathname === '/order';
+  const isProfile = pathname === '/success';
 
   return (
     <nav className="fixed bottom-6 left-0 right-0 z-50 flex justify-center">
@@ -20,9 +21,11 @@ export default function BottomNav() {
             restaurant_menu
           </span>
         </Link>
-        <button className="text-zinc-500 hover:text-white transition-colors">
-          <span className="material-symbols-outlined">person</span>
-        </button>
+        <Link href="/success" className={`transition-colors ${isProfile ? 'text-orange-500 scale-110' : 'text-zinc-500 hover:text-white'}`}>
+          <span className="material-symbols-outlined" style={isProfile ? { fontVariationSettings: "'FILL' 1" } : undefined}>
+            person
+          </span>
+        </Link>
       </div>
     </nav>
   );
