@@ -18,7 +18,7 @@ const manrope = Manrope({
 });
 
 export const metadata = {
-  title: 'Ghar Ka Zaika',
+  title: 'P-Corner',
   description: 'Fresh, fiery, and built for the hungry. Order online for takeaway or delivery.',
 };
 
