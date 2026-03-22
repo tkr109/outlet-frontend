@@ -9,7 +9,7 @@ export default function HomePage() {
   return (
     <>
       <TopAppBar />
-      <main className="pt-16 px-4 space-y-8 max-w-2xl mx-auto">
+      <main className="pt-16 px-4 space-y-8 pb-32">
         {/* Hero Section */}
         <section className="relative mt-4">
           <div className="relative h-[480px] w-full rounded-[1rem] overflow-hidden group">
@@ -46,7 +46,7 @@ export default function HomePage() {
             <div className="col-span-2 bg-surface-container-low rounded-[1rem] p-6 flex items-center justify-between group overflow-hidden relative">
               <div className="relative z-10">
                 <h4 className="font-headline text-xl font-bold">{outlet.specialties[1]}</h4>
-                <p className="text-on-surface-variant text-xs mt-1">Loaded with fresh paneer and homestyle spices</p>
+                <p className="text-on-surface-variant text-xs mt-1">Made fresh daily with premium ingredients</p>
               </div>
               <img
                 alt="Specialty"
@@ -58,22 +58,26 @@ export default function HomePage() {
               <div className="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary">
                 <span className="material-symbols-outlined">eco</span>
               </div>
-              <h4 className="font-headline text-lg font-bold">Fresh Daily</h4>
-              <p className="text-on-surface-variant text-[11px] leading-relaxed">Made fresh every day with locally sourced ingredients.</p>
+              <h4 className="font-headline text-lg font-bold">Fresh Fare</h4>
+              <p className="text-on-surface-variant text-[11px] leading-relaxed">
+                Premium ingredients sourced daily for maximum flavor.
+              </p>
             </div>
             <div className="bg-surface-container-high rounded-[1rem] p-5 space-y-3">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                 <span className="material-symbols-outlined">local_fire_department</span>
               </div>
-              <h4 className="font-headline text-lg font-bold">Flame Grilled</h4>
-              <p className="text-on-surface-variant text-[11px] leading-relaxed">Smoky charcoal flavors in every bite.</p>
+              <h4 className="font-headline text-lg font-bold">Flame-Grilled</h4>
+              <p className="text-on-surface-variant text-[11px] leading-relaxed">
+                Charcoal-fired techniques for smoky, bold taste.
+              </p>
             </div>
           </div>
         </section>
 
         {/* Timing Sections */}
         <section className="grid grid-cols-1 gap-4">
-          <div className="glass-panel p-6 rounded-[1rem] flex items-start space-x-4 border border-outline-variant/15">
+          <div className="glass-panel p-6 rounded-[1rem] flex items-start space-x-4 border border-outline-variant/[0.15]">
             <div className="p-3 rounded-xl bg-surface-container-highest">
               <span className="material-symbols-outlined text-primary">shopping_bag</span>
             </div>
@@ -87,7 +91,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className="glass-panel p-6 rounded-[1rem] flex items-start space-x-4 border border-outline-variant/15">
+          <div className="glass-panel p-6 rounded-[1rem] flex items-start space-x-4 border border-outline-variant/[0.15]">
             <div className="p-3 rounded-xl bg-surface-container-highest">
               <span className="material-symbols-outlined text-tertiary">moped</span>
             </div>
@@ -98,30 +102,44 @@ export default function HomePage() {
                   <span className="text-on-surface-variant">Daily</span>
                   <span className="text-on-surface">{outlet.deliveryTiming}</span>
                 </div>
-                <p className="text-[10px] text-tertiary/80 mt-2 font-medium">Free delivery for orders above ₹500</p>
+                <p className="text-[10px] text-tertiary/80 mt-2 font-medium">
+                  Free delivery for orders above ₹500
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Community Section */}
-        <section className="pb-32">
+        {/* Socials Section */}
+        <section className="pb-12">
           <h3 className="font-headline text-2xl font-bold tracking-tight px-2 mb-4">Our Community</h3>
           <div className="flex space-x-4 overflow-x-auto pb-4 hide-scrollbar">
             <div className="flex-shrink-0 w-40 h-52 rounded-[1rem] overflow-hidden relative group">
-              <img alt="Social post 1" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSUapt1W5yCyDtSZkHi_H1quAa4I1IuLbnXG885FrbLRA3oMqnPVe1Le__xv8ek-EGVIQjUgmm4-vREpRrn1zFsw6Cd9oVPJ14Rf1-7T-JMDT_TokBrsIpFDZdghZvoQ06vI99YpxWawEekTdqziBk5VgqyeQ-YwYDxtVk8ajl0Fa4gcXP3zH8TNwBtZ5u6L-sAcam0KXp8bQeOPl8LTpZ9i6V4sigxjBcAYZsf_DDmbe15-cn1SOXh3Qek5755HWsdORYgpR_jSk" />
+              <img
+                alt="Social post 1"
+                className="w-full h-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSUapt1W5yCyDtSZkHi_H1quAa4I1IuLbnXG885FrbLRA3oMqnPVe1Le__xv8ek-EGVIQjUgmm4-vREpRrn1zFsw6Cd9oVPJ14Rf1-7T-JMDT_TokBrsIpFDZdghZvoQ06vI99YpxWawEekTdqziBk5VgqyeQ-YwYDxtVk8ajl0Fa4gcXP3zH8TNwBtZ5u6L-sAcam0KXp8bQeOPl8LTpZ9i6V4sigxjBcAYZsf_DDmbe15-cn1SOXh3Qek5755HWsdORYgpR_jSk"
+              />
               <div className="absolute top-2 right-2 p-1.5 glass-panel rounded-full">
                 <span className="material-symbols-outlined text-[16px]">photo_camera</span>
               </div>
             </div>
             <div className="flex-shrink-0 w-40 h-52 rounded-[1rem] overflow-hidden relative group">
-              <img alt="Social post 2" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFzyzb1SlemEm_frbg87_0gUG2vjsXLzala5K7uPe5uLDuAY7gC6fDctP5bpbZKYjyNxHbZOetsenuFXX7gDwVGMg5rzE9bCF6yc73niI0hwpfZ9w4MNTrRbLNhfDqwV8NxcN0Nwc1Kq0haI7lQCckZhXTAYuT3dOWT4ag40x6RkzoOC4YPTvSlIliV-FH291fLPobJFMeh5GL6TWsshTnFic3QXWLH4iBXs3sr5YQesQMH5PsztJnmFSA55krQVTG1YbKvGpct7A" />
+              <img
+                alt="Social post 2"
+                className="w-full h-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFzyzb1SlemEm_frbg87_0gUG2vjsXLzala5K7uPe5uLDuAY7gC6fDctP5bpbZKYjyNxHbZOetsenuFXX7gDwVGMg5rzE9bCF6yc73niI0hwpfZ9w4MNTrRbLNhfDqwV8NxcN0Nwc1Kq0haI7lQCckZhXTAYuT3dOWT4ag40x6RkzoOC4YPTvSlIliV-FH291fLPobJFMeh5GL6TWsshTnFic3QXWLH4iBXs3sr5YQesQMH5PsztJnmFSA55krQVTG1YbKvGpct7A"
+              />
               <div className="absolute top-2 right-2 p-1.5 glass-panel rounded-full">
                 <span className="material-symbols-outlined text-[16px]">videocam</span>
               </div>
             </div>
             <div className="flex-shrink-0 w-40 h-52 rounded-[1rem] overflow-hidden relative group">
-              <img alt="Social post 3" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0qZ2fBqiRGD5P5V8o2UdJY32v3AR3R3vqrjHkNOVLNo4xFsZyz4Vv6KvoidyDbSqKq1V84gffjhHGEJX2D6cxGygqEenFzT_iO4zMCfmoxxhlhGbvP6-1Th7R6vIY4uus1wTQ2KW2qW2ZXXrKukShaSAAofOLMOlsH8v9JIdLcMNSxGNxQjcKJ8_Z8fkRb7slB_deOul9tuOyIc3cAeW_yOTOL3RM4Aj1BQdkWAIi0qf12jfATuRTkRRkCxWq6hunEHFhWCbwmbc" />
+              <img
+                alt="Social post 3"
+                className="w-full h-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0qZ2fBqiRGD5P5V8o2UdJY32v3AR3R3vqrjHkNOVLNo4xFsZyz4Vv6KvoidyDbSqKq1V84gffjhHGEJX2D6cxGygqEenFzT_iO4zMCfmoxxhlhGbvP6-1Th7R6vIY4uus1wTQ2KW2qW2ZXXrKukShaSAAofOLMOlsH8v9JIdLcMNSxGNxQjcKJ8_Z8fkRb7slB_deOul9tuOyIc3cAeW_yOTOL3RM4Aj1BQdkWAIi0qf12jfATuRTkRRkCxWq6hunEHFhWCbwmbc"
+              />
               <div className="absolute top-2 right-2 p-1.5 glass-panel rounded-full">
                 <span className="material-symbols-outlined text-[16px]">favorite</span>
               </div>

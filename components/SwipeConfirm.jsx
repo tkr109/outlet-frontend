@@ -1,55 +1,74 @@
 'use client';
+import { useRef, useState, useCallback } from 'react';
 
-import { useState } from 'react';
-
-export default function SwipeConfirm({ disabled, onConfirm }) {
+export default function SwipeConfirm({ onConfirm, disabled = false }) {
+  const trackRef = useRef(null);
   const [dragging, setDragging] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [offsetX, setOffsetX] = useState(0);
+  const startX = useRef(0);
 
-  const reset = () => {
-    setDragging(false);
-    setProgress(0);
-  };
+  const getMaxTravel = useCallback(() => {
+    if (!trackRef.current) return 200;
+    return trackRef.current.offsetWidth - 64 - 8;
+  }, []);
 
-  const handlePointerMove = (event) => {
+  const handleStart = useCallback((clientX) => {
+    if (disabled) return;
+    startX.current = clientX;
+    setDragging(true);
+  }, [disabled]);
+
+  const handleMove = useCallback((clientX) => {
     if (!dragging) return;
-    const target = event.currentTarget;
-    const rect = target.getBoundingClientRect();
-    const next = ((event.clientX - rect.left) / rect.width) * 100;
-    setProgress(Math.max(0, Math.min(100, next)));
-  };
+    const delta = Math.max(0, Math.min(clientX - startX.current, getMaxTravel()));
+    setOffsetX(delta);
+  }, [dragging, getMaxTravel]);
 
-  const handlePointerUp = () => {
-    if (progress >= 78 && !disabled) {
-      onConfirm();
-      reset();
-      return;
+  const handleEnd = useCallback(() => {
+    if (!dragging) return;
+    setDragging(false);
+    if (offsetX / getMaxTravel() >= 0.78) {
+      onConfirm?.();
     }
-    reset();
-  };
+    setOffsetX(0);
+  }, [dragging, offsetX, getMaxTravel, onConfirm]);
+
+  const progress = getMaxTravel() > 0 ? offsetX / getMaxTravel() : 0;
 
   return (
-    <div className={disabled ? 'swipe-wrap disabled' : 'swipe-wrap'}>
-      <p className="swipe-label">Swipe to confirm</p>
-      <div
-        className="swipe-track"
-        onPointerDown={(event) => {
-          if (disabled) return;
-          event.currentTarget.setPointerCapture(event.pointerId);
-          setDragging(true);
-        }}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerCancel={handlePointerUp}
-        onPointerLeave={() => {
-          if (dragging) handlePointerUp();
-        }}
-      >
-        <div className="swipe-fill" style={{ width: `${progress}%` }} />
-        <span className="swipe-text">{disabled ? 'Complete details first' : 'Swipe here to confirm'}</span>
-        <div className="swipe-thumb" style={{ left: `calc(${progress}% - 22px)` }} />
+    <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e] to-transparent z-50">
+      <div className="max-w-md mx-auto relative group">
+        <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div
+          ref={trackRef}
+          className="relative bg-surface-container-highest h-20 rounded-full flex items-center p-2 overflow-hidden shadow-2xl"
+        >
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <span className="font-label text-sm font-black text-white/30 tracking-[0.2em] uppercase">
+              {disabled ? 'Complete Details' : 'Swipe to Confirm'}
+            </span>
+          </div>
+          <div
+            className="absolute left-0 top-0 h-full bg-primary/10 rounded-l-full"
+            style={{ width: `${Math.min(progress * 100 + 20, 100)}%`, transition: dragging ? 'none' : 'width 0.3s' }}
+          />
+          <div
+            className={`liquid-gradient h-16 w-16 rounded-full flex items-center justify-center shadow-lg z-10 touch-none select-none ${
+              disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer active:scale-95'
+            }`}
+            style={{
+              transform: `translateX(${offsetX}px)`,
+              transition: dragging ? 'none' : 'transform 0.3s',
+            }}
+            onPointerDown={(e) => { e.preventDefault(); handleStart(e.clientX); }}
+            onPointerMove={(e) => handleMove(e.clientX)}
+            onPointerUp={handleEnd}
+            onPointerCancel={handleEnd}
+          >
+            <span className="material-symbols-outlined text-3xl font-bold text-white">double_arrow</span>
+          </div>
+        </div>
       </div>
-      <p className="helper-text">Release after moving the thumb across the track.</p>
     </div>
   );
 }

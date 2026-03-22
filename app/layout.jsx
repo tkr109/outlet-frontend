@@ -34,7 +34,9 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased select-none min-h-screen">{children}</body>
+      <body className="bg-[#0e0e0e] text-white font-body antialiased select-none min-h-screen">
+        {children}
+      </body>
     </html>
   );
 }
