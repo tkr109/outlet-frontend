@@ -1,40 +1,28 @@
 'use client';
 
-import { useMemo, useState, useCallback, useRef } from 'react';
+import { useMemo, useState, useCallback, useRef, Suspense } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import TopAppBar from '../../components/TopAppBar';
 import BottomNav from '../../components/BottomNav';
 import SwipeConfirm from '../../components/SwipeConfirm';
 import { menu, outlet } from '../../lib/data';
 import { ORDER_KEY, currency, emptyCustomer } from '../../lib/constants';
+import { useCart } from '../../lib/CartContext';
 
-export default function OrderPage() {
+function OrderPageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { cart, updateQty, clearCart, cartCount, subtotal, allItems } = useCart();
   const categories = useMemo(() => menu.map((c) => c.category), []);
   const [activeCategory, setActiveCategory] = useState(categories[0]);
-  const [cart, setCart] = useState({});
-  const [showCheckout, setShowCheckout] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(searchParams.get('checkout') === 'true');
   const [customer, setCustomer] = useState(emptyCustomer);
   const sectionRefs = useRef({});
 
-  const allItems = useMemo(() => menu.flatMap((c) => c.items), []);
-  const cartCount = Object.values(cart).reduce((s, q) => s + q, 0);
-  const subtotal = allItems.reduce((s, it) => s + (cart[it.id] || 0) * it.price, 0);
   const serviceFee = cartCount > 0 ? 10 : 0;
   const deliveryFee = customer.orderType === 'delivery' && cartCount > 0 ? 25 : 0;
   const total = subtotal + serviceFee + deliveryFee;
-
-  const updateQty = useCallback((id, delta) => {
-    setCart((prev) => {
-      const next = (prev[id] || 0) + delta;
-      if (next <= 0) {
-        const { [id]: _, ...rest } = prev;
-        return rest;
-      }
-      return { ...prev, [id]: next };
-    });
-  }, []);
 
   const scrollToSection = (cat) => {
     setActiveCategory(cat);
@@ -70,14 +58,15 @@ export default function OrderPage() {
       `*Total: ${currency.format(total)}*`,
     ].filter(Boolean).join('\n');
     window.open(`https://wa.me/${outlet.ownerWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
+    clearCart();
     router.push('/success');
-  }, [cart, customer, allItems, subtotal, serviceFee, deliveryFee, total, router]);
+  }, [cart, customer, allItems, subtotal, serviceFee, deliveryFee, total, router, clearCart]);
 
   // ─── CHECKOUT VIEW ───
   if (showCheckout) {
     return (
       <>
-        <TopAppBar showBack cartCount={cartCount} onBack={() => setShowCheckout(false)} />
+        <TopAppBar showBack onBack={() => setShowCheckout(false)} />
         <main className="pt-24 pb-40 px-6 max-w-lg mx-auto">
           <section className="mb-10">
             <h2 className="font-headline font-extrabold text-[36px] tracking-[-0.9px] text-white mb-2">Final Review</h2>
@@ -154,7 +143,7 @@ export default function OrderPage() {
   // ─── MENU VIEW (all sections visible) ───
   return (
     <>
-      <TopAppBar cartCount={cartCount} />
+      <TopAppBar />
       <main className="pt-20 pb-44 px-6 max-w-2xl mx-auto">
         {/* Hero Hook */}
         <section className="mb-8">
@@ -218,8 +207,9 @@ export default function OrderPage() {
               {section.category === 'Starters' && <StarterSection items={section.items} cart={cart} updateQty={updateQty} />}
               {section.category === 'Burgers' && <BurgerSection items={section.items} cart={cart} updateQty={updateQty} />}
               {section.category === 'Portions' && <PortionSection items={section.items} cart={cart} updateQty={updateQty} />}
-              {(section.category === 'Souvlaki & Doner') && <ListSection items={section.items} cart={cart} updateQty={updateQty} />}
-              {(section.category === 'Sandwiches' || section.category === 'Drinks' || section.category === 'Sides') && <ListSection items={section.items} cart={cart} updateQty={updateQty} />}
+              {section.category === 'Souvlaki & Doner' && <ListSection items={section.items} cart={cart} updateQty={updateQty} />}
+              {section.category === 'Sandwiches' && <SandwichSection items={section.items} cart={cart} updateQty={updateQty} />}
+              {(section.category === 'Drinks' || section.category === 'Sides') && <ListSection items={section.items} cart={cart} updateQty={updateQty} />}
             </section>
           ))}
         </div>
@@ -247,6 +237,14 @@ export default function OrderPage() {
   );
 }
 
+export default function OrderPage() {
+  return (
+    <Suspense>
+      <OrderPageInner />
+    </Suspense>
+  );
+}
+
 // ─── SECTION COMPONENTS ───
 
 function StarterSection({ items, cart, updateQty }) {
@@ -267,8 +265,8 @@ function StarterSection({ items, cart, updateQty }) {
                 <h4 className="font-headline text-[18px] font-bold text-on-surface leading-tight">{item.name}</h4>
                 <p className="text-on-surface-variant text-xs mt-1">{item.greek && `${item.greek} - `}{item.note}</p>
               </div>
-              <div className="flex items-center justify-between mt-3">
-                <span className="font-headline text-[18px] font-extrabold text-primary">{currency.format(item.price)}</span>
+              <div className="flex flex-col items-start gap-2 mt-3">
+                <span className="font-headline text-[18px] font-extrabold text-primary leading-none">{currency.format(item.price)}</span>
                 <ItemButton id={item.id} cart={cart} updateQty={updateQty} />
               </div>
             </div>
@@ -279,12 +277,12 @@ function StarterSection({ items, cart, updateQty }) {
       {smallItems.length > 0 && (
         <div className="grid grid-cols-2 gap-4">
           {smallItems.map((item) => (
-            <div key={item.id} className="bg-surface-container-low rounded-[32px] p-4 flex flex-col justify-between">
+            <div key={item.id} className="bg-surface-container-low rounded-[32px] p-4 flex flex-col justify-between gap-4">
               <div>
                 <h4 className="font-headline font-bold text-on-surface">{item.name}</h4>
                 <p className="text-[10px] text-on-surface-variant uppercase">{item.note}</p>
               </div>
-              <div className="flex items-center justify-between mt-4">
+              <div className="flex flex-col items-start gap-2">
                 <span className="text-primary font-bold">{currency.format(item.price)}</span>
                 <button onClick={() => updateQty(item.id, 1)} className="w-8 h-8 flex items-center justify-center bg-surface-container-highest rounded-full hover:bg-primary hover:text-on-primary-container transition-colors">
                   <span className="material-symbols-outlined text-sm">add</span>
@@ -305,13 +303,13 @@ function BurgerSection({ items, cart, updateQty }) {
   return (
     <div className="space-y-4">
       {imageItems.map((item) => (
-        <div key={item.id} className="group flex items-center gap-4 bg-surface-container-low rounded-[32px] p-4">
+        <div key={item.id} className="group flex items-start gap-4 bg-surface-container-low rounded-[32px] p-4">
           <Image alt={item.name} width={80} height={80} className="w-20 h-20 rounded-[32px] object-cover" src={item.image} />
           <div className="flex-grow">
             <h4 className="font-headline font-bold text-on-surface">{item.name}</h4>
             <p className="text-xs text-on-surface-variant">{item.note}</p>
-            <div className="flex justify-between items-center mt-2">
-              <span className="font-bold text-primary">{currency.format(item.price)}</span>
+            <div className="flex flex-col items-start gap-2 mt-2">
+              <span className="font-bold text-primary leading-none">{currency.format(item.price)}</span>
               <ItemButton id={item.id} cart={cart} updateQty={updateQty} variant="text" />
             </div>
           </div>
@@ -320,11 +318,11 @@ function BurgerSection({ items, cart, updateQty }) {
       {listItems.length > 0 && (
         <div className="space-y-2">
           {listItems.map((item) => (
-            <div key={item.id} className="flex justify-between items-center p-3 border-b border-outline-variant/10">
+            <div key={item.id} className="flex items-center justify-between gap-4 p-3 border-b border-outline-variant/10">
               <span className="text-sm font-medium">{item.name}</span>
-              <div className="flex items-center gap-4">
-                <span className="text-sm font-bold text-primary">{currency.format(item.price)}</span>
-                <button onClick={() => updateQty(item.id, 1)} className="text-primary">
+              <div className="flex flex-col items-end gap-1 shrink-0">
+                <span className="text-xs font-bold text-primary">{currency.format(item.price)}</span>
+                <button onClick={() => updateQty(item.id, 1)} className="text-primary leading-none">
                   <span className="material-symbols-outlined text-xl">add_circle</span>
                 </button>
               </div>
@@ -344,15 +342,20 @@ function PortionSection({ items, cart, updateQty }) {
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
         {gridItems.map((item) => (
-          <div key={item.id} className={`bg-surface-container-high p-4 rounded-[48px] flex flex-col items-center text-center ${item.popular ? 'border-2 border-primary/20' : ''}`}>
+          <div key={item.id} className={`relative bg-surface-container-high p-4 rounded-[48px] flex flex-col items-center text-center ${item.popular ? 'border-2 border-primary/20' : ''}`}>
+            {item.popular && (
+              <span className="absolute top-3 right-3 bg-primary text-on-primary text-[8px] font-black uppercase tracking-[1px] px-2.5 py-1 rounded-full z-10">
+                Popular
+              </span>
+            )}
             <Image alt={item.name} width={64} height={64} className="w-16 h-16 rounded-full object-cover mb-3" src={item.image} />
             <h4 className="text-sm font-bold">{item.name}</h4>
             <span className="text-primary font-black mt-2">{currency.format(item.price)}</span>
             <button
               onClick={() => updateQty(item.id, 1)}
-              className={`mt-3 w-full py-1.5 rounded-full text-[10px] font-bold uppercase ${item.popular ? 'bg-primary text-on-primary' : 'bg-background hover:bg-primary hover:text-on-primary transition-colors'}`}
+              className="mt-3 w-full py-1.5 rounded-full text-[10px] font-bold uppercase bg-background hover:bg-primary hover:text-on-primary transition-colors"
             >
-              {item.popular ? 'Popular' : 'Select'}
+              Select
             </button>
           </div>
         ))}
@@ -360,14 +363,14 @@ function PortionSection({ items, cart, updateQty }) {
       {listItems.length > 0 && (
         <div className="bg-surface-container-low rounded-[32px] divide-y divide-outline-variant/10">
           {listItems.map((item) => (
-            <div key={item.id} className="p-4 flex justify-between items-center">
+            <div key={item.id} className="p-4 flex items-center justify-between gap-4">
               <div>
                 <h4 className="font-bold">{item.name}</h4>
                 {item.greek && <span className="text-xs text-on-surface-variant">{item.greek}</span>}
               </div>
-              <div className="flex items-center gap-4">
-                <span className="font-bold text-primary">{currency.format(item.price)}</span>
-                <button onClick={() => updateQty(item.id, 1)} className="text-zinc-500 hover:text-primary transition-colors">
+              <div className="flex flex-col items-end gap-1 shrink-0">
+                <span className="text-xs font-bold text-primary">{currency.format(item.price)}</span>
+                <button onClick={() => updateQty(item.id, 1)} className="text-zinc-500 hover:text-primary transition-colors leading-none">
                   <span className="material-symbols-outlined">add_circle</span>
                 </button>
               </div>
@@ -383,16 +386,14 @@ function ListSection({ items, cart, updateQty }) {
   return (
     <div className="bg-surface-container-low rounded-[32px] divide-y divide-outline-variant/10">
       {items.map((item) => (
-        <div key={item.id} className="p-4 flex justify-between items-center">
+        <div key={item.id} className="p-4 flex items-start justify-between gap-4">
           <div>
             <h4 className="font-bold">{item.name}</h4>
             {item.greek && <span className="text-xs text-on-surface-variant">{item.greek}</span>}
           </div>
-          <div className="flex items-center gap-4">
-            <span className="font-bold text-primary">{currency.format(item.price)}</span>
-            <button onClick={() => updateQty(item.id, 1)} className="text-zinc-500 hover:text-primary transition-colors">
-              <span className="material-symbols-outlined">add_circle</span>
-            </button>
+          <div className="flex flex-col items-end gap-1 shrink-0">
+            <span className="text-xs font-bold text-primary leading-none">{currency.format(item.price)}</span>
+            <ItemButton id={item.id} cart={cart} updateQty={updateQty} size="sm" />
           </div>
         </div>
       ))}
@@ -400,26 +401,64 @@ function ListSection({ items, cart, updateQty }) {
   );
 }
 
-function ItemButton({ id, cart, updateQty, variant = 'pill' }) {
-  if (cart[id]) {
+function SandwichSection({ items, cart, updateQty }) {
+  return (
+    <div className="space-y-4">
+      {items.map((item) => (
+        <div key={item.id} className="bg-surface-container-low rounded-[32px] p-4 flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <h4 className="font-bold text-on-surface truncate">{item.name}</h4>
+            <p className="text-xs text-on-surface-variant mt-1">{item.greek && `${item.greek} - `}{item.note}</p>
+          </div>
+          <div className="flex flex-col items-end gap-2 shrink-0">
+            <span className="font-bold text-primary leading-none">{currency.format(item.price)}</span>
+            <ItemButton id={item.id} cart={cart} updateQty={updateQty} size="sm" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ItemButton({ id, cart, updateQty, variant = 'pill', size = 'md' }) {
+  const isSmall = size === 'sm';
+  const quantity = cart[id] || 0;
+
+  if (quantity > 0) {
     return (
-      <div className="flex items-center bg-surface-container-highest rounded-full p-1 gap-3">
-        <button onClick={() => updateQty(id, -1)} className="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
-          <span className="material-symbols-outlined text-lg">remove</span>
+      <div className={`inline-flex items-center bg-surface-container-highest rounded-full border border-outline-variant/20 ${isSmall ? 'px-1 py-0.5 gap-1 min-w-[4.8rem]' : 'p-1 gap-3'}`}>
+        <button
+          type="button"
+          onClick={() => updateQty(id, -1)}
+          className={`${isSmall ? 'w-7 h-7' : 'w-8 h-8'} flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors`}
+        >
+          {isSmall ? <span className="text-[15px] font-black leading-none">-</span> : <span className="material-symbols-outlined text-lg">remove</span>}
         </button>
-        <span className="font-label font-bold text-sm min-w-[1rem] text-center">{cart[id]}</span>
-        <button onClick={() => updateQty(id, 1)} className="w-8 h-8 flex items-center justify-center bg-primary rounded-full text-on-primary-container shadow-sm">
-          <span className="material-symbols-outlined text-lg">add</span>
+        <span className={`${isSmall ? 'text-xs min-w-[1rem]' : 'text-sm min-w-[1rem]'} font-label font-bold text-center`}>{quantity}</span>
+        <button
+          type="button"
+          onClick={() => updateQty(id, 1)}
+          className={`${isSmall ? 'w-7 h-7' : 'w-8 h-8'} flex items-center justify-center bg-primary rounded-full text-on-primary-container shadow-sm`}
+        >
+          {isSmall ? <span className="text-[15px] font-black leading-none">+</span> : <span className="material-symbols-outlined text-lg">add</span>}
         </button>
       </div>
     );
   }
   if (variant === 'text') {
     return (
-      <button onClick={() => updateQty(id, 1)} className="text-xs font-bold uppercase tracking-[1.2px] text-on-surface-variant hover:text-primary transition-colors">Add</button>
+      <button type="button" onClick={() => updateQty(id, 1)} className="text-xs font-bold uppercase tracking-[1.2px] text-on-surface-variant hover:text-primary transition-colors">Add</button>
     );
   }
   return (
-    <button onClick={() => updateQty(id, 1)} className="bg-surface-container-highest text-on-surface px-4 py-1.5 rounded-full font-label text-[10px] font-bold uppercase tracking-[1px] hover:bg-primary hover:text-on-primary-container transition-all">Add</button>
+    <button
+      type="button"
+      onClick={() => updateQty(id, 1)}
+      className={`bg-surface-container-highest text-on-surface rounded-full font-label font-bold uppercase tracking-[1px] hover:bg-primary hover:text-on-primary-container transition-all ${
+        isSmall ? 'px-3 py-1 text-[9px]' : 'px-4 py-1.5 text-[10px]'
+      }`}
+    >
+      Add
+    </button>
   );
 }
