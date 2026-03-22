@@ -1,31 +1,30 @@
 'use client';
 import Link from 'next/link';
 
-export default function TopAppBar({ cartCount = 0, showBack = false }) {
+export default function TopAppBar({ cartCount = 0, showBack = false, onBack }) {
   return (
     <header className="fixed top-0 w-full z-50 bg-zinc-950/60 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
       <div className="flex justify-between items-center px-6 h-16 max-w-2xl mx-auto">
-        <div className="flex items-center gap-4">
-          {showBack ? (
-            <Link href="/order" className="text-white hover:opacity-80 transition-opacity active:scale-95">
-              <span className="material-symbols-outlined">arrow_back</span>
-            </Link>
-          ) : (
-            <button className="text-orange-500 hover:opacity-80 transition-opacity active:scale-95">
-              <span className="material-symbols-outlined">menu</span>
-            </button>
-          )}
-          <Link href="/" className="text-xl font-black italic text-white tracking-tighter font-headline">
-            Ghar Ka Zaika
-          </Link>
-        </div>
+        {showBack ? (
+          <button
+            onClick={onBack}
+            className="text-white hover:opacity-80 transition-opacity active:scale-95"
+          >
+            <span className="material-symbols-outlined">arrow_back</span>
+          </button>
+        ) : (
+          <button className="text-orange-500 hover:opacity-80 transition-opacity active:scale-95">
+            <span className="material-symbols-outlined">menu</span>
+          </button>
+        )}
+        <Link href="/" className="text-xl font-black italic text-white tracking-[-1px] font-headline uppercase">
+          P. Corner
+        </Link>
         <Link href="/order" className="text-orange-500 hover:opacity-80 transition-opacity active:scale-95 relative">
           <span className="material-symbols-outlined">shopping_bag</span>
-          {cartCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-primary text-on-primary-container text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
-              {cartCount}
-            </span>
-          )}
+          <span className="absolute -top-1 -right-1 bg-primary text-on-primary-container text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+            {cartCount}
+          </span>
         </Link>
       </div>
     </header>

@@ -12,15 +12,17 @@ export default function SwipeConfirm({ onConfirm, disabled = false }) {
     return trackRef.current.offsetWidth - 64 - 8;
   }, []);
 
-  const handleStart = useCallback((clientX) => {
+  const handleStart = useCallback((e) => {
     if (disabled) return;
-    startX.current = clientX;
+    e.preventDefault();
+    e.target.setPointerCapture(e.pointerId);
+    startX.current = e.clientX;
     setDragging(true);
   }, [disabled]);
 
-  const handleMove = useCallback((clientX) => {
+  const handleMove = useCallback((e) => {
     if (!dragging) return;
-    const delta = Math.max(0, Math.min(clientX - startX.current, getMaxTravel()));
+    const delta = Math.max(0, Math.min(e.clientX - startX.current, getMaxTravel()));
     setOffsetX(delta);
   }, [dragging, getMaxTravel]);
 
@@ -44,7 +46,7 @@ export default function SwipeConfirm({ onConfirm, disabled = false }) {
           className="relative bg-surface-container-highest h-20 rounded-full flex items-center p-2 overflow-hidden shadow-2xl"
         >
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <span className="font-label text-sm font-black text-white/30 tracking-[0.2em] uppercase">
+            <span className="font-label text-sm font-black text-white/30 tracking-[2.8px] uppercase">
               {disabled ? 'Complete Details' : 'Swipe to Confirm'}
             </span>
           </div>
@@ -60,8 +62,8 @@ export default function SwipeConfirm({ onConfirm, disabled = false }) {
               transform: `translateX(${offsetX}px)`,
               transition: dragging ? 'none' : 'transform 0.3s',
             }}
-            onPointerDown={(e) => { e.preventDefault(); handleStart(e.clientX); }}
-            onPointerMove={(e) => handleMove(e.clientX)}
+            onPointerDown={handleStart}
+            onPointerMove={handleMove}
             onPointerUp={handleEnd}
             onPointerCancel={handleEnd}
           >

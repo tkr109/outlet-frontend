@@ -84,12 +84,12 @@ export default function HomePage() {
               <h4 className="font-headline font-bold text-[18px]">Takeaway Timings</h4>
               <div className="mt-2 space-y-1">
                 <div className="flex justify-between w-full text-xs font-label uppercase tracking-[0.6px]">
-                  <span className="text-on-surface-variant">Mon — Fri</span>
-                  <span className="text-white">11:00 - 22:30</span>
+                  <span className="text-on-surface-variant">Daily</span>
+                  <span className="text-white">{outlet.takeawayTiming}</span>
                 </div>
                 <div className="flex justify-between w-full text-xs font-label uppercase tracking-[0.6px]">
-                  <span className="text-on-surface-variant">Sat — Sun</span>
-                  <span className="text-white">09:00 - 23:30</span>
+                  <span className="text-on-surface-variant">Closed</span>
+                  <span className="text-white">{outlet.closedDay}</span>
                 </div>
               </div>
             </div>
@@ -103,9 +103,9 @@ export default function HomePage() {
               <div className="mt-2 space-y-1">
                 <div className="flex justify-between w-full text-xs font-label uppercase tracking-[0.6px]">
                   <span className="text-on-surface-variant">Daily Window</span>
-                  <span className="text-white">12:00 - 21:00</span>
+                  <span className="text-white">{outlet.deliveryTiming}</span>
                 </div>
-                <p className="text-[10px] text-tertiary/80 mt-2 font-medium">Free delivery for orders above $75</p>
+                <p className="text-[10px] text-tertiary/80 mt-2 font-medium">Free delivery 18:00 - 21:00</p>
               </div>
             </div>
           </div>
