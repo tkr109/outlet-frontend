@@ -20,6 +20,9 @@ const manrope = Manrope({
 export const metadata = {
   title: 'P-Corner',
   description: 'Fresh, fiery, and built for the hungry. Order online for takeaway or delivery.',
+  icons: {
+    icon: '/icon.svg',
+  },
 };
 
 export const viewport = {
