@@ -21,16 +21,18 @@ export default function HomePage() {
           <h3 className="font-headline text-[24px] font-bold tracking-[-0.6px] px-2">Food Speciality</h3>
           <div className="grid grid-cols-2 gap-4">
             {/* Full-width pasta card */}
-            <div className="col-span-2 bg-surface-container-low rounded-[32px] h-[144px] flex items-center justify-between overflow-hidden relative">
+            <div className="col-span-2 bg-surface-container-low rounded-[32px] h-[144px] overflow-hidden relative group">
               <div className="absolute left-6 top-1/2 -translate-y-1/2 z-10">
                 <h4 className="font-headline text-[20px] font-bold">Artisanal Pastas</h4>
                 <p className="text-on-surface-variant text-xs mt-1">Hand-rolled daily with organic semolina</p>
               </div>
-              <img
-                alt="Pasta"
-                className="absolute right-[-16px] top-1/2 -translate-y-1/2 w-24 h-24 rounded-full object-cover rotate-12 group-hover:rotate-0 transition-transform duration-500 shadow-xl"
-                src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=2000&auto=format&fit=crop"
-              />
+              <div className="absolute right-6 top-1/2 -translate-y-1/2">
+                <img
+                  alt="Pasta"
+                  className="w-24 h-24 rounded-full object-cover rotate-12 group-hover:rotate-0 transition-transform duration-500 shadow-xl"
+                  src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=2000&auto=format&fit=crop"
+                />
+              </div>
             </div>
             {/* Botanical */}
             <div className="rounded-[32px] p-5 space-y-3" style={{ backgroundColor: '#201f1f' }}>
@@ -76,13 +78,13 @@ export default function HomePage() {
           <h3 className="font-headline text-[24px] font-bold tracking-[-0.6px] px-2 mb-4">Our Community</h3>
           <div className="flex space-x-4 overflow-x-auto pb-4 hide-scrollbar">
             <div className="flex-shrink-0 w-40 h-52 rounded-[32px] overflow-hidden relative">
-              <img alt="Social post 1" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1414235077428-338988a2e8c0?q=80&w=2000&auto=format&fit=crop" />
+              <img alt="Social post 1" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2000&auto=format&fit=crop" />
               <div className="absolute top-2 right-2 p-1.5 glass-panel rounded-full">
                 <span className="material-symbols-outlined text-[16px]">photo_camera</span>
               </div>
             </div>
             <div className="flex-shrink-0 w-40 h-52 rounded-[32px] overflow-hidden relative">
-              <img alt="Social post 2" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1498837167922-4115340058b8?q=80&w=2000&auto=format&fit=crop" />
+              <img alt="Social post 2" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=2000&auto=format&fit=crop" />
               <div className="absolute top-2 right-2 p-1.5 glass-panel rounded-full">
                 <span className="material-symbols-outlined text-[16px]">videocam</span>
               </div>
