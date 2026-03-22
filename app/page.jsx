@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import TopAppBar from '../components/TopAppBar';
 import BottomNav from '../components/BottomNav';
+import ChefChoiceCarousel from '../components/ChefChoiceCarousel';
 import { outlet } from '../lib/data';
 
 export default function HomePage() {
@@ -12,31 +13,7 @@ export default function HomePage() {
       <main className="pt-16 px-4 space-y-8 pb-32">
         {/* Hero Section */}
         <section className="relative mt-4">
-          <div className="relative h-[480px] w-full rounded-[32px] overflow-hidden group">
-            <img
-              alt="Signature dish"
-              className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjJwziBGqV6hPj1haKtBsvMTeljWT4intQI9xkfUrxTOfsM88HzlQj3A0GwMRUHkYXgGEywVuDFpiUIh66oruBVyMU5TXfS4yoal-tqi19bcKWWNvJCkeEX1KWwqwHdCGhABR1L2gSOGakt1EszMqU6_7uigeJUapdJcR5lbpcP-HmX1Z8DkNR1w0vkeLpE51sH3nm4FibXypDCu5ODkcmLgsNiShpzWuL3d78tbsTrCpDK99CarfMd-Fa4iElAbq1Zs8ATbT-qpc"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-            <div className="absolute bottom-8 left-6 right-6 space-y-4">
-              <span className="inline-block px-4 py-1 rounded-full bg-tertiary-container text-on-tertiary-container font-label text-[10px] uppercase tracking-[1px] font-bold">
-                Chef&apos;s Choice
-              </span>
-              <h2 className="font-headline text-[36px] font-extrabold tracking-[-0.9px] leading-[36px] text-white">
-                Smoked Truffle<br />Rib-Eye
-              </h2>
-              <p className="font-body text-on-surface-variant text-sm leading-5 max-w-[280px]">
-                {outlet.tagline}
-              </p>
-              <Link
-                href="/order"
-                className="liquid-gradient block w-full py-4 rounded-full font-headline font-bold text-[16px] text-on-primary-container text-center shadow-lg shadow-primary/20 active:scale-95 transition-transform"
-              >
-                Order Now
-              </Link>
-            </div>
-          </div>
+          <ChefChoiceCarousel />
         </section>
 
         {/* Food Speciality - Bento Style */}
@@ -51,8 +28,8 @@ export default function HomePage() {
               </div>
               <img
                 alt="Pasta"
-                className="absolute right-[-16px] top-1/2 -translate-y-1/2 w-24 h-24 rounded-full object-cover rotate-12 group-hover:rotate-0 transition-transform duration-500"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3TiOJHJlJsQZbJTm16KfJTvfcTvpni_VV5IMqEzkclTAicO9vk5w9_crv3fk2Nclgz4OxRj9LYhbWOGldYzGOtjjkSS97GujAL_TQ5JOoOInH-NKeiPXqYohqP0F3mjMdf9iXUU3eHQx0sx8wuKTBgdrKAi-8OoCDUwsduE-W0odVoavEYzUYkNwHrcopqb8-MLNJlSWLkqxbgtnmJI2B2QwK9B1E7ptqEKdbbY0sV5cwaLX_XgA3IMlYcrsjziHnoggEd3PYdzc"
+                className="absolute right-[-16px] top-1/2 -translate-y-1/2 w-24 h-24 rounded-full object-cover rotate-12 group-hover:rotate-0 transition-transform duration-500 shadow-xl"
+                src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=2000&auto=format&fit=crop"
               />
             </div>
             {/* Botanical */}
@@ -116,19 +93,19 @@ export default function HomePage() {
           <h3 className="font-headline text-[24px] font-bold tracking-[-0.6px] px-2 mb-4">Our Community</h3>
           <div className="flex space-x-4 overflow-x-auto pb-4 hide-scrollbar">
             <div className="flex-shrink-0 w-40 h-52 rounded-[32px] overflow-hidden relative">
-              <img alt="Social post 1" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSUapt1W5yCyDtSZkHi_H1quAa4I1IuLbnXG885FrbLRA3oMqnPVe1Le__xv8ek-EGVIQjUgmm4-vREpRrn1zFsw6Cd9oVPJ14Rf1-7T-JMDT_TokBrsIpFDZdghZvoQ06vI99YpxWawEekTdqziBk5VgqyeQ-YwYDxtVk8ajl0Fa4gcXP3zH8TNwBtZ5u6L-sAcam0KXp8bQeOPl8LTpZ9i6V4sigxjBcAYZsf_DDmbe15-cn1SOXh3Qek5755HWsdORYgpR_jSk" />
+              <img alt="Social post 1" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1414235077428-338988a2e8c0?q=80&w=2000&auto=format&fit=crop" />
               <div className="absolute top-2 right-2 p-1.5 glass-panel rounded-full">
                 <span className="material-symbols-outlined text-[16px]">photo_camera</span>
               </div>
             </div>
             <div className="flex-shrink-0 w-40 h-52 rounded-[32px] overflow-hidden relative">
-              <img alt="Social post 2" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFzyzb1SlemEm_frbg87_0gUG2vjsXLzala5K7uPe5uLDuAY7gC6fDctP5bpbZKYjyNxHbZOetsenuFXX7gDwVGMg5rzE9bCF6yc73niI0hwpfZ9w4MNTrRbLNhfDqwV8NxcN0Nwc1Kq0haI7lQCckZhXTAYuT3dOWT4ag40x6RkzoOC4YPTvSlIliV-FH291fLPobJFMeh5GL6TWsshTnFic3QXWLH4iBXs3sr5YQesQMH5PsztJnmFSA55krQVTG1YbKvGpct7A" />
+              <img alt="Social post 2" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1498837167922-4115340058b8?q=80&w=2000&auto=format&fit=crop" />
               <div className="absolute top-2 right-2 p-1.5 glass-panel rounded-full">
                 <span className="material-symbols-outlined text-[16px]">videocam</span>
               </div>
             </div>
             <div className="flex-shrink-0 w-40 h-52 rounded-[32px] overflow-hidden relative">
-              <img alt="Social post 3" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0qZ2fBqiRGD5P5V8o2UdJY32v3AR3R3vqrjHkNOVLNo4xFsZyz4Vv6KvoidyDbSqKq1V84gffjhHGEJX2D6cxGygqEenFzT_iO4zMCfmoxxhlhGbvP6-1Th7R6vIY4uus1wTQ2KW2qW2ZXXrKukShaSAAofOLMOlsH8v9JIdLcMNSxGNxQjcKJ8_Z8fkRb7slB_deOul9tuOyIc3cAeW_yOTOL3RM4Aj1BQdkWAIi0qf12jfATuRTkRRkCxWq6hunEHFhWCbwmbc" />
+              <img alt="Social post 3" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2000&auto=format&fit=crop" />
               <div className="absolute top-2 right-2 p-1.5 glass-panel rounded-full">
                 <span className="material-symbols-outlined text-[16px]">favorite</span>
               </div>
