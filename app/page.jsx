@@ -260,8 +260,9 @@ export default function HomePage() {
                         </span>
                       ))}
                     </div>
-                    <span className="rounded-full bg-tertiary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-tertiary">
-                      {review.source}
+                    <span className="flex shrink-0 max-w-[100px] flex-col items-end rounded-full bg-tertiary/10 px-2 py-1 text-[8px] font-bold uppercase tracking-[0.12em] text-tertiary leading-none">
+                      <span>{review.source}</span>
+                      <span className="mt-1 text-[7px] tracking-[0.18em] opacity-80">{review.date}</span>
                     </span>
                   </div>
                   <p className="font-body text-[15px] leading-6 text-white">
