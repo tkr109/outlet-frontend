@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
 const carouselItems = [
@@ -50,6 +50,8 @@ const carouselItems = [
 
 export default function ChefChoiceCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const swipeStartX = useRef(0);
+  const swipeActive = useRef(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -61,8 +63,37 @@ export default function ChefChoiceCarousel() {
 
   const currentItem = carouselItems[currentIndex];
 
+  const handleSwipeStart = (event) => {
+    swipeActive.current = true;
+    swipeStartX.current = event.clientX;
+  };
+
+  const handleSwipeEnd = (event) => {
+    if (!swipeActive.current) return;
+
+    const deltaX = event.clientX - swipeStartX.current;
+    swipeActive.current = false;
+
+    if (Math.abs(deltaX) < 50) return;
+
+    setCurrentIndex((prev) =>
+      deltaX < 0 ? (prev + 1) % carouselItems.length : (prev - 1 + carouselItems.length) % carouselItems.length,
+    );
+  };
+
   return (
-    <div className="relative h-[480px] w-full rounded-[32px] overflow-hidden group">
+    <div
+      className="relative h-[480px] w-full rounded-[32px] overflow-hidden group touch-pan-y select-none"
+      onPointerDown={handleSwipeStart}
+      onPointerUp={handleSwipeEnd}
+      onPointerCancel={() => {
+        swipeActive.current = false;
+      }}
+      onPointerLeave={() => {
+        swipeActive.current = false;
+      }}
+      style={{ touchAction: 'pan-y' }}
+    >
       {carouselItems.map((item, index) => (
         <div
           key={item.id}
@@ -86,6 +117,7 @@ export default function ChefChoiceCarousel() {
         {carouselItems.map((_, index) => (
           <button
             key={index}
+            type="button"
             onClick={() => setCurrentIndex(index)}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index === currentIndex ? 'bg-white w-4' : 'bg-white/50'

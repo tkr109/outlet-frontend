@@ -46,12 +46,12 @@ export default function HomePage() {
               </Link>
             }
           />
-          <div className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-2 hide-scrollbar">
+          <div className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-2 hide-scrollbar snap-x snap-mandatory scroll-smooth">
             {featuredItems.map((item) => (
               <Link
                 key={item.id}
                 href="/order"
-                className="glass-panel group relative flex w-[274px] flex-shrink-0 overflow-hidden rounded-[32px] border border-outline-variant/[0.14] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.18)]"
+                className="glass-panel group relative flex w-[274px] flex-shrink-0 snap-start overflow-hidden rounded-[32px] border border-outline-variant/[0.14] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.18)]"
               >
                 <div className="flex min-h-[192px] flex-col justify-between pr-24">
                   <div className="space-y-3">
@@ -241,11 +241,11 @@ export default function HomePage() {
             title="Guest Reviews"
             subtitle="A compact snapshot from public guest feedback."
           />
-          <div className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-2 hide-scrollbar">
+          <div className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-2 hide-scrollbar snap-x snap-mandatory scroll-smooth">
             {homepage.reviews.map((review, index) => (
               <article
                 key={`${review.author}-${index}`}
-                className="glass-panel flex w-[292px] flex-shrink-0 flex-col justify-between rounded-[32px] border border-outline-variant/[0.14] p-5 shadow-[0_14px_34px_rgba(0,0,0,0.18)]"
+                className="glass-panel flex w-[292px] flex-shrink-0 snap-start flex-col justify-between rounded-[32px] border border-outline-variant/[0.14] p-5 shadow-[0_14px_34px_rgba(0,0,0,0.18)]"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
@@ -288,8 +288,8 @@ export default function HomePage() {
             title="Our Community"
             subtitle="A little atmosphere from what lands on the table."
           />
-          <div className="mt-4 flex space-x-4 overflow-x-auto pb-4 hide-scrollbar">
-            <div className="relative h-52 w-40 flex-shrink-0 overflow-hidden rounded-[32px]">
+          <div className="mt-4 flex space-x-4 overflow-x-auto pb-4 hide-scrollbar snap-x snap-mandatory scroll-smooth">
+            <div className="relative h-52 w-40 flex-shrink-0 snap-start overflow-hidden rounded-[32px]">
               <Image
                 alt="Social post 1"
                 fill
@@ -300,7 +300,7 @@ export default function HomePage() {
                 <span className="material-symbols-outlined text-[16px]">photo_camera</span>
               </div>
             </div>
-            <div className="relative h-52 w-40 flex-shrink-0 overflow-hidden rounded-[32px]">
+            <div className="relative h-52 w-40 flex-shrink-0 snap-start overflow-hidden rounded-[32px]">
               <Image
                 alt="Social post 2"
                 fill
@@ -311,7 +311,7 @@ export default function HomePage() {
                 <span className="material-symbols-outlined text-[16px]">videocam</span>
               </div>
             </div>
-            <div className="relative h-52 w-40 flex-shrink-0 overflow-hidden rounded-[32px]">
+            <div className="relative h-52 w-40 flex-shrink-0 snap-start overflow-hidden rounded-[32px]">
               <Image
                 alt="Social post 3"
                 fill
