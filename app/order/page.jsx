@@ -65,7 +65,7 @@ function OrderPageInner() {
   if (showCheckout) {
     return (
       <>
-        <TopAppBar showBack cartCount={cartCount} onBack={() => setShowCheckout(false)} />
+        <TopAppBar showBack onBack={() => setShowCheckout(false)} />
         <main className="pt-24 pb-40 px-6 max-w-lg mx-auto">
           <section className="mb-10">
             <h2 className="font-headline font-extrabold text-[36px] tracking-[-0.9px] text-white mb-2">Final Review</h2>
@@ -142,7 +142,7 @@ function OrderPageInner() {
   // ─── MENU VIEW (all sections visible) ───
   return (
     <>
-      <TopAppBar cartCount={cartCount} />
+      <TopAppBar />
       <main className="pt-20 pb-44 px-6 max-w-2xl mx-auto">
         {/* Hero Hook */}
         <section className="mb-8">
