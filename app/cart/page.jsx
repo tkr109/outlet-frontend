@@ -23,7 +23,7 @@ export default function CartPage() {
     return (
       <>
         <TopAppBar />
-        <main className="pt-24 pb-40 px-6 max-w-lg mx-auto flex flex-col items-center justify-center min-h-[70vh]">
+        <main className="pt-24 pb-40 px-4 sm:px-6 max-w-lg mx-auto flex flex-col items-center justify-center min-h-[60vh] sm:min-h-[70vh]">
           <div className="w-20 h-20 rounded-full bg-surface-container-highest flex items-center justify-center mb-6">
             <span className="material-symbols-outlined text-4xl text-on-surface-variant">shopping_bag</span>
           </div>
@@ -48,10 +48,10 @@ export default function CartPage() {
   return (
     <>
       <TopAppBar />
-      <main className="pt-24 pb-44 px-6 max-w-lg mx-auto">
+      <main className="pt-24 pb-44 px-4 sm:px-6 max-w-lg mx-auto">
         {/* Header */}
         <section className="mb-8">
-          <h2 className="font-headline text-[36px] font-extrabold tracking-[-0.9px] text-on-surface mb-2">Your Bag</h2>
+          <h2 className="font-headline text-[28px] sm:text-[36px] font-extrabold tracking-[-0.9px] text-on-surface mb-2">Your Bag</h2>
           <p className="text-on-surface-variant font-body text-[16px]">
             {cartCount} {cartCount === 1 ? 'item' : 'items'} ready to go.
           </p>
@@ -90,7 +90,7 @@ export default function CartPage() {
         </div>
 
         {/* Order Summary */}
-        <div className="bg-surface-container-low rounded-[32px] p-6 space-y-4 mb-8">
+        <div className="bg-surface-container-low rounded-[32px] p-4 sm:p-6 space-y-4 mb-8">
           <h3 className="font-headline font-bold text-[20px] text-white">Order Summary</h3>
           <div className="h-[1px] bg-outline-variant opacity-[0.15]" />
           <div className="space-y-2">

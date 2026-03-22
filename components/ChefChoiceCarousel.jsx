@@ -83,7 +83,7 @@ export default function ChefChoiceCarousel() {
 
   return (
     <div
-      className="relative h-[480px] w-full rounded-[32px] overflow-hidden group touch-pan-y select-none"
+      className="relative h-[360px] sm:h-[480px] w-full rounded-[24px] sm:rounded-[32px] overflow-hidden group touch-pan-y select-none"
       onPointerDown={handleSwipeStart}
       onPointerUp={handleSwipeEnd}
       onPointerCancel={() => {
@@ -113,13 +113,13 @@ export default function ChefChoiceCarousel() {
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/10 z-20" />
       
       {/* Dots indicator */}
-      <div className="absolute top-6 right-6 z-30 flex space-x-2">
+      <div className="absolute top-5 right-5 sm:top-6 sm:right-6 z-30 flex space-x-2">
         {carouselItems.map((_, index) => (
           <button
             key={index}
             type="button"
             onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+            className={`w-2 h-2 p-2 rounded-full transition-all duration-300 ${
               index === currentIndex ? 'bg-white w-4' : 'bg-white/50'
             }`}
             aria-label={`Go to slide ${index + 1}`}
@@ -127,13 +127,13 @@ export default function ChefChoiceCarousel() {
         ))}
       </div>
 
-      <div className="absolute bottom-8 left-6 right-6 space-y-4 z-30">
+      <div className="absolute bottom-6 left-5 right-5 sm:bottom-8 sm:left-6 sm:right-6 space-y-4 z-30">
         <span className="inline-block px-4 py-1 rounded-full bg-tertiary-container text-on-tertiary-container font-label text-[10px] uppercase tracking-[1px] font-bold transition-all duration-500">
           {currentItem.tag}
         </span>
         <h2 
           key={`title-${currentIndex}`}
-          className="font-headline text-[36px] font-extrabold tracking-[-0.9px] leading-[36px] text-white animate-fade-in-up"
+          className="font-headline text-[28px] leading-[28px] sm:text-[36px] sm:leading-[36px] font-extrabold tracking-[-0.9px] text-white animate-fade-in-up"
         >
           {currentItem.title.split(' ').map((word, i, arr) => (
             i === arr.length - 2 ? <span key={i}>{word}<br /></span> : <span key={i}>{word} </span>
@@ -141,7 +141,7 @@ export default function ChefChoiceCarousel() {
         </h2>
         <p 
           key={`desc-${currentIndex}`}
-          className="font-body text-white/90 text-sm leading-5 max-w-[280px] animate-fade-in-up delay-75"
+          className="font-body text-white/90 text-sm leading-5 max-w-[240px] sm:max-w-[280px] animate-fade-in-up delay-75"
         >
           {currentItem.description}
         </p>

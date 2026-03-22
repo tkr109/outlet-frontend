@@ -30,10 +30,10 @@ export default function SuccessPage() {
   return (
     <>
       <TopAppBar />
-      <main className="flex-grow pt-24 pb-32 px-6 flex flex-col items-center max-w-lg mx-auto w-full">
+      <main className="flex-grow pt-24 pb-32 px-4 sm:px-6 flex flex-col items-center max-w-lg mx-auto w-full">
         {/* Visual Confirmation Header */}
         <div className="text-center mb-8 relative">
-          <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-32 h-32 bg-primary/20 blur-3xl rounded-full" />
+          <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-primary/20 blur-3xl rounded-full" />
           <div className="relative inline-flex items-center justify-center mb-6">
             <div className="absolute inset-0 bg-tertiary-container blur-2xl opacity-20 animate-pulse" />
             <div className="w-20 h-20 rounded-full liquid-gradient flex items-center justify-center shadow-2xl shadow-primary/40">
@@ -45,14 +45,14 @@ export default function SuccessPage() {
               </span>
             </div>
           </div>
-          <h2 className="text-[36px] font-headline font-extrabold tracking-[-0.9px] mb-2">Order Confirmed!</h2>
+          <h2 className="text-[28px] sm:text-[36px] font-headline font-extrabold tracking-[-0.9px] mb-2">Order Confirmed!</h2>
           <p className="text-on-surface-variant font-body text-[16px]">Your feast is being prepared with artistry.</p>
         </div>
 
         {/* The Premium Receipt Card */}
         <div className="w-full bg-surface-container-low rounded-[32px] p-1 relative overflow-hidden shadow-2xl">
           <div className="absolute inset-0 border border-outline-variant/[0.1] rounded-[32px] pointer-events-none" />
-          <div className="bg-surface-container-high rounded-[32px] p-8 relative">
+          <div className="bg-surface-container-high rounded-[32px] p-5 sm:p-8 relative">
             {/* Receipt Header */}
             <div className="flex justify-between items-start mb-10">
               <div>
