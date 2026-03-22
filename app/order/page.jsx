@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState, useCallback, useRef } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import TopAppBar from '../../components/TopAppBar';
 import BottomNav from '../../components/BottomNav';
@@ -124,7 +125,7 @@ export default function OrderPage() {
                 {allItems.filter((it) => cart[it.id]).map((it) => (
                   <div key={it.id} className="flex items-start justify-between">
                     <div className="flex gap-4">
-                      {it.image && <div className="w-12 h-12 rounded-[32px] bg-surface-container-highest overflow-hidden shrink-0"><img className="w-full h-full object-cover" src={it.image} alt={it.name} /></div>}
+                      {it.image && <div className="w-12 h-12 rounded-[32px] bg-surface-container-highest overflow-hidden shrink-0 relative"><Image fill className="object-cover" src={it.image} alt={it.name} /></div>}
                       <div>
                         <p className="font-bold text-white text-sm">{it.name}</p>
                         <p className="text-xs text-on-surface-variant">{cart[it.id]} x {currency.format(it.price)}</p>
@@ -259,7 +260,7 @@ function StarterSection({ items, cart, updateQty }) {
         <div key={item.id} className="group bg-surface-container-low rounded-[32px] p-4 transition-all duration-300 hover:bg-surface-container-high">
           <div className="flex gap-4">
             <div className="relative w-28 h-28 flex-shrink-0">
-              <img alt={item.name} className="w-full h-full object-cover rounded-[48px] shadow-lg group-hover:scale-105 transition-transform duration-500" src={item.image} />
+              <Image alt={item.name} fill className="object-cover rounded-[48px] shadow-lg group-hover:scale-105 transition-transform duration-500" src={item.image} />
             </div>
             <div className="flex flex-col justify-between py-1 flex-grow">
               <div>
@@ -305,7 +306,7 @@ function BurgerSection({ items, cart, updateQty }) {
     <div className="space-y-4">
       {imageItems.map((item) => (
         <div key={item.id} className="group flex items-center gap-4 bg-surface-container-low rounded-[32px] p-4">
-          <img alt={item.name} className="w-20 h-20 rounded-[32px] object-cover" src={item.image} />
+          <Image alt={item.name} width={80} height={80} className="w-20 h-20 rounded-[32px] object-cover" src={item.image} />
           <div className="flex-grow">
             <h4 className="font-headline font-bold text-on-surface">{item.name}</h4>
             <p className="text-xs text-on-surface-variant">{item.note}</p>
@@ -344,7 +345,7 @@ function PortionSection({ items, cart, updateQty }) {
       <div className="grid grid-cols-2 gap-4">
         {gridItems.map((item) => (
           <div key={item.id} className={`bg-surface-container-high p-4 rounded-[48px] flex flex-col items-center text-center ${item.popular ? 'border-2 border-primary/20' : ''}`}>
-            <img alt={item.name} className="w-16 h-16 rounded-full object-cover mb-3" src={item.image} />
+            <Image alt={item.name} width={64} height={64} className="w-16 h-16 rounded-full object-cover mb-3" src={item.image} />
             <h4 className="text-sm font-bold">{item.name}</h4>
             <span className="text-primary font-black mt-2">{currency.format(item.price)}</span>
             <button
