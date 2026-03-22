@@ -387,9 +387,14 @@ function ListSection({ items, cart, updateQty }) {
     <div className="bg-surface-container-low rounded-[32px] divide-y divide-outline-variant/10">
       {items.map((item) => (
         <div key={item.id} className="p-4 flex items-start justify-between gap-4">
-          <div>
-            <h4 className="font-bold">{item.name}</h4>
-            {item.greek && <span className="text-xs text-on-surface-variant">{item.greek}</span>}
+          <div className="flex items-center gap-3">
+            {item.image && (
+              <Image alt={item.name} width={48} height={48} className="w-12 h-12 rounded-[16px] object-cover shrink-0" src={item.image} />
+            )}
+            <div>
+              <h4 className="font-bold">{item.name}</h4>
+              {item.greek && <span className="text-xs text-on-surface-variant">{item.greek}</span>}
+            </div>
           </div>
           <div className="flex flex-col items-end gap-1 shrink-0">
             <span className="text-xs font-bold text-primary leading-none">{currency.format(item.price)}</span>
@@ -406,9 +411,14 @@ function SandwichSection({ items, cart, updateQty }) {
     <div className="space-y-4">
       {items.map((item) => (
         <div key={item.id} className="bg-surface-container-low rounded-[32px] p-4 flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <h4 className="font-bold text-on-surface truncate">{item.name}</h4>
-            <p className="text-xs text-on-surface-variant mt-1">{item.greek && `${item.greek} - `}{item.note}</p>
+          <div className="flex items-start gap-4 min-w-0">
+            {item.image && (
+              <Image alt={item.name} width={64} height={64} className="w-16 h-16 rounded-[20px] object-cover shrink-0" src={item.image} />
+            )}
+            <div className="min-w-0">
+              <h4 className="font-bold text-on-surface truncate">{item.name}</h4>
+              <p className="text-xs text-on-surface-variant mt-1">{item.greek && `${item.greek} - `}{item.note}</p>
+            </div>
           </div>
           <div className="flex flex-col items-end gap-2 shrink-0">
             <span className="font-bold text-primary leading-none">{currency.format(item.price)}</span>
