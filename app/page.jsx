@@ -52,40 +52,23 @@ export default function HomePage() {
         </section>
 
         {/* Timing Sections */}
-        <section className="grid grid-cols-1 gap-4">
-          <div className="glass-panel p-[25px] rounded-[32px] flex items-start space-x-4 border border-outline-variant/[0.15]">
-            <div className="p-3 rounded-xl bg-surface-container-highest">
-              <span className="material-symbols-outlined text-primary">shopping_bag</span>
-            </div>
-            <div className="pl-4">
-              <h4 className="font-headline font-bold text-[18px]">Takeaway Timings</h4>
-              <div className="mt-2 space-y-1">
-                <div className="flex justify-between w-full text-xs font-label uppercase tracking-[0.6px]">
-                  <span className="text-on-surface-variant">Daily</span>
-                  <span className="text-white">{outlet.takeawayTiming}</span>
-                </div>
-                <div className="flex justify-between w-full text-xs font-label uppercase tracking-[0.6px]">
-                  <span className="text-on-surface-variant">Closed</span>
-                  <span className="text-white">{outlet.closedDay}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="glass-panel p-[25px] rounded-[32px] flex items-start space-x-4 border border-outline-variant/[0.15]">
-            <div className="p-3 rounded-xl bg-surface-container-highest">
-              <span className="material-symbols-outlined text-tertiary">moped</span>
-            </div>
-            <div className="pl-4">
-              <h4 className="font-headline font-bold text-[18px]">Delivery Timings</h4>
-              <div className="mt-2 space-y-1">
-                <div className="flex justify-between w-full text-xs font-label uppercase tracking-[0.6px]">
-                  <span className="text-on-surface-variant">Daily Window</span>
-                  <span className="text-white">{outlet.deliveryTiming}</span>
-                </div>
-                <p className="text-[10px] text-tertiary/80 mt-2 font-medium">Free delivery 18:00 - 21:00</p>
-              </div>
-            </div>
-          </div>
+        <section className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <TimingCard
+            icon="shopping_bag"
+            iconClass="text-primary"
+            title="Takeaway Timings"
+            label="Daily"
+            value={outlet.takeawayTiming}
+            footnote={`Closed ${outlet.closedDay}`}
+          />
+          <TimingCard
+            icon="moped"
+            iconClass="text-tertiary"
+            title="Delivery Timings"
+            label="Daily window"
+            value={outlet.deliveryTiming}
+            footnote="Free delivery 18:00 - 21:00"
+          />
         </section>
 
         {/* Community Section */}
@@ -115,5 +98,31 @@ export default function HomePage() {
       </main>
       <BottomNav />
     </>
+  );
+}
+
+function TimingCard({ icon, iconClass, title, label, value, footnote }) {
+  return (
+    <div className="glass-panel rounded-[24px] border border-outline-variant/[0.14] p-3 sm:p-4 shadow-[0_10px_28px_rgba(0,0,0,0.16)]">
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-surface-container-highest sm:h-11 sm:w-11">
+          <span className={`material-symbols-outlined ${iconClass}`}>{icon}</span>
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <h4 className="font-headline text-[16px] font-bold tracking-[-0.3px] sm:text-[17px]">{title}</h4>
+              <p className="mt-0.5 text-[10px] uppercase tracking-[0.12em] text-on-surface-variant">{label}</p>
+            </div>
+            <div className="text-right">
+              <span className="block text-[10px] uppercase tracking-[0.12em] text-on-surface-variant">{label}</span>
+              <span className="block text-[13px] font-semibold text-white sm:text-[14px]">{value}</span>
+            </div>
+          </div>
+          <div className="mt-3 h-px w-full bg-outline-variant/15" />
+          <p className="mt-2 text-[10px] font-medium text-tertiary/85 sm:text-[11px]">{footnote}</p>
+        </div>
+      </div>
+    </div>
   );
 }
