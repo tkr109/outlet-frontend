@@ -43,11 +43,11 @@ export default function Drawer({ isOpen, onClose }) {
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="p-6 pb-10 space-y-6">
+        <div className="p-5 pb-8 sm:p-6 sm:pb-10 space-y-6">
           {/* Header */}
           <div className="flex items-start justify-between">
             <div>
-              <h2 className="font-headline text-[24px] font-extrabold tracking-[-0.6px] text-white">
+              <h2 className="font-headline text-[20px] sm:text-[24px] font-extrabold tracking-[-0.6px] text-white">
                 {outlet.name}
               </h2>
               <p className="text-sm text-on-surface-variant mt-1">{outlet.tagline}</p>

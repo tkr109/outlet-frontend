@@ -51,7 +51,7 @@ export default function HomePage() {
               <Link
                 key={item.id}
                 href="/order"
-                className="glass-panel group relative flex w-[274px] flex-shrink-0 snap-start overflow-hidden rounded-[32px] border border-outline-variant/[0.14] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.18)]"
+                className="glass-panel group relative flex w-[240px] sm:w-[274px] flex-shrink-0 snap-start overflow-hidden rounded-[32px] border border-outline-variant/[0.14] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.18)]"
               >
                 <div className="flex min-h-[192px] flex-col justify-between pr-24">
                   <div className="space-y-3">
@@ -66,7 +66,7 @@ export default function HomePage() {
                       ) : null}
                     </div>
                     <div>
-                      <h3 className="font-headline text-[24px] font-extrabold tracking-[-0.6px] text-white">
+                      <h3 className="font-headline text-[20px] sm:text-[24px] font-extrabold tracking-[-0.6px] text-white">
                         {item.name}
                       </h3>
                       <p className="mt-2 max-w-[170px] text-sm leading-5 text-on-surface-variant">
@@ -79,7 +79,7 @@ export default function HomePage() {
                       <p className="text-[10px] uppercase tracking-[0.14em] text-on-surface-variant">
                         Starts at
                       </p>
-                      <p className="font-headline text-[20px] font-bold text-primary">
+                      <p className="font-headline text-[18px] sm:text-[20px] font-bold text-primary">
                         {currency.format(item.price)}
                       </p>
                     </div>
@@ -213,14 +213,14 @@ export default function HomePage() {
             title="Stay Connected"
             subtitle="Quick links for WhatsApp, direct contact, and guest feedback."
           />
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
             {outlet.socialLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"
-                className="glass-panel flex min-h-[116px] flex-col items-center justify-center gap-3 rounded-[28px] border border-outline-variant/[0.14] px-3 py-4 text-center shadow-[0_12px_28px_rgba(0,0,0,0.16)] transition-transform active:scale-95"
+                className="glass-panel flex min-h-[116px] flex-col items-center justify-center gap-3 rounded-[28px] border border-outline-variant/[0.14] px-2 py-3 sm:px-3 sm:py-4 text-center shadow-[0_12px_28px_rgba(0,0,0,0.16)] transition-transform active:scale-95"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-full bg-surface-container-highest text-primary">
                   <span className="material-symbols-outlined">{link.icon}</span>
@@ -289,7 +289,7 @@ export default function HomePage() {
             subtitle="A little atmosphere from what lands on the table."
           />
           <div className="mt-4 flex space-x-4 overflow-x-auto pb-4 hide-scrollbar snap-x snap-mandatory scroll-smooth">
-            <div className="relative h-52 w-40 flex-shrink-0 snap-start overflow-hidden rounded-[32px]">
+            <div className="relative h-44 w-36 sm:h-52 sm:w-40 flex-shrink-0 snap-start overflow-hidden rounded-[32px]">
               <Image
                 alt="Social post 1"
                 fill
@@ -300,7 +300,7 @@ export default function HomePage() {
                 <span className="material-symbols-outlined text-[16px]">photo_camera</span>
               </div>
             </div>
-            <div className="relative h-52 w-40 flex-shrink-0 snap-start overflow-hidden rounded-[32px]">
+            <div className="relative h-44 w-36 sm:h-52 sm:w-40 flex-shrink-0 snap-start overflow-hidden rounded-[32px]">
               <Image
                 alt="Social post 2"
                 fill
@@ -311,7 +311,7 @@ export default function HomePage() {
                 <span className="material-symbols-outlined text-[16px]">videocam</span>
               </div>
             </div>
-            <div className="relative h-52 w-40 flex-shrink-0 snap-start overflow-hidden rounded-[32px]">
+            <div className="relative h-44 w-36 sm:h-52 sm:w-40 flex-shrink-0 snap-start overflow-hidden rounded-[32px]">
               <Image
                 alt="Social post 3"
                 fill
@@ -334,7 +334,7 @@ function SectionHeader({ title, subtitle, action = null }) {
   return (
     <div className="flex items-end justify-between gap-4 px-2">
       <div>
-        <h2 className="font-headline text-[24px] font-bold tracking-[-0.6px] text-white">
+        <h2 className="font-headline text-[20px] sm:text-[24px] font-bold tracking-[-0.6px] text-white">
           {title}
         </h2>
         {subtitle ? (

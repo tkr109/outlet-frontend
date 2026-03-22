@@ -67,9 +67,9 @@ function OrderPageInner() {
     return (
       <>
         <TopAppBar showBack onBack={() => setShowCheckout(false)} />
-        <main className="pt-24 pb-40 px-6 max-w-lg mx-auto">
+        <main className="pt-24 pb-40 px-4 sm:px-6 max-w-lg mx-auto">
           <section className="mb-10">
-            <h2 className="font-headline font-extrabold text-[36px] tracking-[-0.9px] text-white mb-2">Final Review</h2>
+            <h2 className="font-headline font-extrabold text-[28px] sm:text-[36px] tracking-[-0.9px] text-white mb-2">Final Review</h2>
             <p className="font-body text-on-surface-variant text-sm">Fine-tune your details before the feast begins.</p>
           </section>
           <div className="space-y-8">
@@ -82,11 +82,11 @@ function OrderPageInner() {
             <div className="grid grid-cols-1 gap-6">
               <div className="space-y-2">
                 <label className="font-label text-xs uppercase tracking-[1.2px] text-primary font-bold ml-1">Full Name</label>
-                <input type="text" placeholder="Your name" value={customer.name} onChange={(e) => handleField('name', e.target.value)} className="w-full bg-surface-container-highest border-none rounded-[32px] px-6 py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all outline-none" />
+                <input type="text" placeholder="Your name" value={customer.name} onChange={(e) => handleField('name', e.target.value)} className="w-full bg-surface-container-highest border-none rounded-[24px] px-5 py-3.5 sm:rounded-[32px] sm:px-6 sm:py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all outline-none" />
               </div>
               <div className="space-y-2">
                 <label className="font-label text-xs uppercase tracking-[1.2px] text-on-surface-variant font-bold ml-1">Phone Number</label>
-                <input type="tel" placeholder="+357 99 000000" value={customer.phone} onChange={(e) => handleField('phone', e.target.value)} className="w-full bg-surface-container-highest border-none rounded-[32px] px-6 py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all outline-none" />
+                <input type="tel" placeholder="+357 99 000000" value={customer.phone} onChange={(e) => handleField('phone', e.target.value)} className="w-full bg-surface-container-highest border-none rounded-[24px] px-5 py-3.5 sm:rounded-[32px] sm:px-6 sm:py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all outline-none" />
               </div>
             </div>
             {customer.orderType === 'delivery' && (
@@ -95,11 +95,11 @@ function OrderPageInner() {
                 <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-2">
                     <label className="font-label text-xs uppercase tracking-[1.2px] text-on-surface-variant font-bold ml-1">House / Apt No.</label>
-                    <input type="text" placeholder="Flat 4B" value={customer.address} onChange={(e) => handleField('address', e.target.value)} className="w-full bg-surface-container-highest border-none rounded-[32px] px-6 py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all outline-none" />
+                    <input type="text" placeholder="Flat 4B" value={customer.address} onChange={(e) => handleField('address', e.target.value)} className="w-full bg-surface-container-highest border-none rounded-[24px] px-5 py-3.5 sm:rounded-[32px] sm:px-6 sm:py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all outline-none" />
                   </div>
                   <div className="space-y-2">
                     <label className="font-label text-xs uppercase tracking-[1.2px] text-on-surface-variant font-bold ml-1">Street Address</label>
-                    <input type="text" placeholder="742 Evergreen Terrace" value={customer.landmark} onChange={(e) => handleField('landmark', e.target.value)} className="w-full bg-surface-container-highest border-none rounded-[32px] px-6 py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all outline-none" />
+                    <input type="text" placeholder="742 Evergreen Terrace" value={customer.landmark} onChange={(e) => handleField('landmark', e.target.value)} className="w-full bg-surface-container-highest border-none rounded-[24px] px-5 py-3.5 sm:rounded-[32px] sm:px-6 sm:py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all outline-none" />
                   </div>
                 </div>
               </div>
@@ -110,7 +110,7 @@ function OrderPageInner() {
                 <h3 className="font-headline font-bold text-[20px] text-white">Your Order</h3>
                 <span className="font-label text-xs text-primary font-bold bg-primary/10 px-3 py-1 rounded-full">{cartCount} ITEMS</span>
               </div>
-              <div className="bg-surface-container-low rounded-[32px] p-6 space-y-4">
+              <div className="bg-surface-container-low rounded-[32px] p-4 sm:p-6 space-y-4">
                 {allItems.filter((it) => cart[it.id]).map((it) => (
                   <div key={it.id} className="flex items-start justify-between">
                     <div className="flex gap-4">
@@ -144,15 +144,15 @@ function OrderPageInner() {
   return (
     <>
       <TopAppBar />
-      <main className="pt-20 pb-44 px-6 max-w-2xl mx-auto">
+      <main className="pt-20 pb-44 px-4 sm:px-6 max-w-2xl mx-auto">
         {/* Hero Hook */}
         <section className="mb-8">
-          <h2 className="font-headline text-[36px] font-extrabold tracking-[-0.9px] text-on-surface mb-2">The Menu</h2>
+          <h2 className="font-headline text-[28px] sm:text-[36px] font-extrabold tracking-[-0.9px] text-on-surface mb-2">The Menu</h2>
           <p className="text-on-surface-variant font-body text-[16px]">Traditional Greek flavors, contemporary soul.</p>
         </section>
 
         {/* Category Pills */}
-        <nav className="flex overflow-x-auto hide-scrollbar gap-3 mb-10 -mx-6 px-6">
+        <nav className="flex overflow-x-auto hide-scrollbar gap-3 mb-10 -mx-4 px-4 sm:-mx-6 sm:px-6">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -224,7 +224,7 @@ function OrderPageInner() {
           </div>
           <button
             onClick={() => cartCount > 0 && setShowCheckout(true)}
-            className={`liquid-gradient px-8 py-3 rounded-full font-label font-bold text-on-primary-container uppercase tracking-[1.4px] text-sm flex items-center gap-2 shadow-lg shadow-primary/20 transition-all ${cartCount === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 active:scale-95'}`}
+            className={`liquid-gradient px-6 py-3 sm:px-8 rounded-full font-label font-bold text-on-primary-container uppercase tracking-[1.4px] text-sm flex items-center gap-2 shadow-lg shadow-primary/20 transition-all ${cartCount === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 active:scale-95'}`}
           >
             Checkout
             <span className="material-symbols-outlined text-lg">arrow_forward</span>
@@ -257,7 +257,7 @@ function StarterSection({ items, cart, updateQty }) {
       {largeItems.map((item) => (
         <div key={item.id} className="group bg-surface-container-low rounded-[32px] p-4 transition-all duration-300 hover:bg-surface-container-high">
           <div className="flex gap-4">
-            <div className="relative w-28 h-28 flex-shrink-0">
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0">
               <Image alt={item.name} fill className="object-cover rounded-[48px] shadow-lg group-hover:scale-105 transition-transform duration-500" src={item.image} />
             </div>
             <div className="flex flex-col justify-between py-1 flex-grow">
@@ -304,7 +304,7 @@ function BurgerSection({ items, cart, updateQty }) {
     <div className="space-y-4">
       {imageItems.map((item) => (
         <div key={item.id} className="group flex items-start gap-4 bg-surface-container-low rounded-[32px] p-4">
-          <Image alt={item.name} width={80} height={80} className="w-20 h-20 rounded-[32px] object-cover" src={item.image} />
+          <Image alt={item.name} width={80} height={80} className="w-16 h-16 sm:w-20 sm:h-20 rounded-[32px] object-cover" src={item.image} />
           <div className="flex-grow">
             <h4 className="font-headline font-bold text-on-surface">{item.name}</h4>
             <p className="text-xs text-on-surface-variant">{item.note}</p>
