@@ -1,4 +1,5 @@
 import { Plus_Jakarta_Sans, Manrope } from 'next/font/google';
+import Providers from '../components/Providers';
 import './globals.css';
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -35,7 +36,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="bg-[#0e0e0e] text-white font-body antialiased select-none min-h-screen">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

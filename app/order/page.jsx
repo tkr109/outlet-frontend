@@ -1,39 +1,27 @@
 'use client';
 
-import { useMemo, useState, useCallback, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useMemo, useState, useCallback, useRef, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import TopAppBar from '../../components/TopAppBar';
 import BottomNav from '../../components/BottomNav';
 import SwipeConfirm from '../../components/SwipeConfirm';
 import { menu, outlet } from '../../lib/data';
 import { ORDER_KEY, currency, emptyCustomer } from '../../lib/constants';
+import { useCart } from '../../lib/CartContext';
 
-export default function OrderPage() {
+function OrderPageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { cart, updateQty, clearCart, cartCount, subtotal, allItems } = useCart();
   const categories = useMemo(() => menu.map((c) => c.category), []);
   const [activeCategory, setActiveCategory] = useState(categories[0]);
-  const [cart, setCart] = useState({});
-  const [showCheckout, setShowCheckout] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(searchParams.get('checkout') === 'true');
   const [customer, setCustomer] = useState(emptyCustomer);
   const sectionRefs = useRef({});
 
-  const allItems = useMemo(() => menu.flatMap((c) => c.items), []);
-  const cartCount = Object.values(cart).reduce((s, q) => s + q, 0);
-  const subtotal = allItems.reduce((s, it) => s + (cart[it.id] || 0) * it.price, 0);
   const serviceFee = cartCount > 0 ? 10 : 0;
   const deliveryFee = customer.orderType === 'delivery' && cartCount > 0 ? 25 : 0;
   const total = subtotal + serviceFee + deliveryFee;
-
-  const updateQty = useCallback((id, delta) => {
-    setCart((prev) => {
-      const next = (prev[id] || 0) + delta;
-      if (next <= 0) {
-        const { [id]: _, ...rest } = prev;
-        return rest;
-      }
-      return { ...prev, [id]: next };
-    });
-  }, []);
 
   const scrollToSection = (cat) => {
     setActiveCategory(cat);
@@ -69,8 +57,9 @@ export default function OrderPage() {
       `*Total: ${currency.format(total)}*`,
     ].filter(Boolean).join('\n');
     window.open(`https://wa.me/${outlet.ownerWhatsApp}?text=${encodeURIComponent(msg)}`, '_blank');
+    clearCart();
     router.push('/success');
-  }, [cart, customer, allItems, subtotal, serviceFee, deliveryFee, total, router]);
+  }, [cart, customer, allItems, subtotal, serviceFee, deliveryFee, total, router, clearCart]);
 
   // ─── CHECKOUT VIEW ───
   if (showCheckout) {
@@ -246,6 +235,14 @@ export default function OrderPage() {
   );
 }
 
+export default function OrderPage() {
+  return (
+    <Suspense>
+      <OrderPageInner />
+    </Suspense>
+  );
+}
+
 // ─── SECTION COMPONENTS ───
 
 function StarterSection({ items, cart, updateQty }) {
@@ -343,15 +340,20 @@ function PortionSection({ items, cart, updateQty }) {
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
         {gridItems.map((item) => (
-          <div key={item.id} className={`bg-surface-container-high p-4 rounded-[48px] flex flex-col items-center text-center ${item.popular ? 'border-2 border-primary/20' : ''}`}>
+          <div key={item.id} className={`relative bg-surface-container-high p-4 rounded-[48px] flex flex-col items-center text-center ${item.popular ? 'border-2 border-primary/20' : ''}`}>
+            {item.popular && (
+              <span className="absolute top-3 right-3 bg-primary text-on-primary text-[8px] font-black uppercase tracking-[1px] px-2.5 py-1 rounded-full z-10">
+                Popular
+              </span>
+            )}
             <img alt={item.name} className="w-16 h-16 rounded-full object-cover mb-3" src={item.image} />
             <h4 className="text-sm font-bold">{item.name}</h4>
             <span className="text-primary font-black mt-2">{currency.format(item.price)}</span>
             <button
               onClick={() => updateQty(item.id, 1)}
-              className={`mt-3 w-full py-1.5 rounded-full text-[10px] font-bold uppercase ${item.popular ? 'bg-primary text-on-primary' : 'bg-background hover:bg-primary hover:text-on-primary transition-colors'}`}
+              className="mt-3 w-full py-1.5 rounded-full text-[10px] font-bold uppercase bg-background hover:bg-primary hover:text-on-primary transition-colors"
             >
-              {item.popular ? 'Popular' : 'Select'}
+              Select
             </button>
           </div>
         ))}
