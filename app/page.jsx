@@ -51,49 +51,40 @@ export default function HomePage() {
               <Link
                 key={item.id}
                 href="/order"
-                className="glass-panel group relative flex w-[240px] sm:w-[274px] flex-shrink-0 snap-start overflow-hidden rounded-[32px] border border-outline-variant/[0.14] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.18)]"
+                className="glass-panel group flex w-[240px] sm:w-[274px] flex-shrink-0 snap-start flex-col overflow-hidden rounded-[32px] border border-outline-variant/[0.14] p-5 shadow-[0_14px_34px_rgba(0,0,0,0.18)]"
               >
-                <div className="flex min-h-[192px] flex-col justify-between pr-24">
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <span className="rounded-full bg-primary/12 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-primary">
-                        {item.category}
-                      </span>
-                      {item.popular ? (
-                        <span className="rounded-full bg-tertiary/12 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-tertiary">
-                          Popular
-                        </span>
-                      ) : null}
-                    </div>
-                    <div>
-                      <h3 className="font-headline text-[20px] sm:text-[24px] font-extrabold tracking-[-0.6px] text-white">
-                        {item.name}
-                      </h3>
-                      <p className="mt-2 max-w-[170px] text-sm leading-5 text-on-surface-variant">
-                        {item.note || 'Made fresh to order.'}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-end justify-between gap-4">
-                    <div>
-                      <p className="text-[10px] uppercase tracking-[0.14em] text-on-surface-variant">
-                        Starts at
-                      </p>
-                      <p className="font-headline text-[18px] sm:text-[20px] font-bold text-primary">
-                        {currency.format(item.price)}
-                      </p>
-                    </div>
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
-                      Order Now
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="rounded-full bg-primary/12 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-primary">
+                    {item.category}
+                  </span>
+                  {item.popular && (
+                    <span className="rounded-full bg-tertiary/12 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-tertiary">
+                      Popular
                     </span>
+                  )}
+                </div>
+                <h3 className="font-headline text-[20px] sm:text-[24px] font-extrabold tracking-[-0.6px] text-white">
+                  {item.name}
+                </h3>
+                <p className="mt-1.5 text-sm leading-5 text-on-surface-variant line-clamp-2">
+                  {item.note || 'Made fresh to order.'}
+                </p>
+                <div className="my-4 flex justify-center">
+                  <div className="h-24 w-24 overflow-hidden rounded-full shadow-xl shadow-black/30 transition-transform duration-500 group-hover:scale-105">
+                    <img alt={item.name} className="h-full w-full object-cover" src={item.image} />
                   </div>
                 </div>
-                <div className="absolute bottom-4 right-4 h-24 w-24 overflow-hidden rounded-full shadow-xl shadow-black/30 transition-transform duration-500 group-hover:scale-105">
-                  <img
-                    alt={item.name}
-                    className="h-full w-full object-cover"
-                    src={item.image}
-                  />
+                <div className="mt-auto flex items-end justify-between">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[0.14em] text-on-surface-variant">Starts at</p>
+                    <p className="font-headline text-[18px] sm:text-[20px] font-bold text-primary">
+                      {currency.format(item.price)}
+                    </p>
+                  </div>
+                  <span className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
+                    Order Now
+                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  </span>
                 </div>
               </Link>
             ))}
