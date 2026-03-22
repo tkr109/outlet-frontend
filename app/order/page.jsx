@@ -110,7 +110,7 @@ export default function OrderPage() {
                   placeholder="Your name"
                   value={customer.name}
                   onChange={(e) => handleField('name', e.target.value)}
-                  className="w-full bg-surface-container-highest border-none rounded-[1rem] px-6 py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all"
+                  className="w-full bg-surface-container-highest border-none rounded-[32px] px-6 py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all outline-none"
                 />
               </div>
               <div className="space-y-2">
@@ -120,7 +120,7 @@ export default function OrderPage() {
                   placeholder="+91 99999 99999"
                   value={customer.phone}
                   onChange={(e) => handleField('phone', e.target.value)}
-                  className="w-full bg-surface-container-highest border-none rounded-[1rem] px-6 py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all"
+                  className="w-full bg-surface-container-highest border-none rounded-[32px] px-6 py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all outline-none"
                 />
               </div>
             </div>
@@ -137,7 +137,7 @@ export default function OrderPage() {
                       placeholder="Flat 4B"
                       value={customer.address}
                       onChange={(e) => handleField('address', e.target.value)}
-                      className="w-full bg-surface-container-highest border-none rounded-[1rem] px-6 py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all"
+                      className="w-full bg-surface-container-highest border-none rounded-[32px] px-6 py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all outline-none"
                     />
                   </div>
                   <div className="space-y-2">
@@ -147,7 +147,7 @@ export default function OrderPage() {
                       placeholder="Near the central plaza"
                       value={customer.landmark}
                       onChange={(e) => handleField('landmark', e.target.value)}
-                      className="w-full bg-surface-container-highest border-none rounded-[1rem] px-6 py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all"
+                      className="w-full bg-surface-container-highest border-none rounded-[32px] px-6 py-4 text-white font-body focus:ring-1 focus:ring-primary/40 placeholder:text-outline transition-all outline-none"
                     />
                   </div>
                 </div>
@@ -162,11 +162,11 @@ export default function OrderPage() {
                   {cartCount} ITEMS
                 </span>
               </div>
-              <div className="bg-surface-container-low rounded-[1rem] p-6 space-y-4">
+              <div className="bg-surface-container-low rounded-[32px] p-6 space-y-4">
                 {allItems.filter((it) => cart[it.id]).map((it) => (
                   <div key={it.id} className="flex items-start justify-between">
                     <div className="flex gap-4">
-                      <div className="w-12 h-12 rounded-[0.75rem] bg-surface-container-highest overflow-hidden shrink-0">
+                      <div className="w-12 h-12 rounded-[32px] bg-surface-container-highest overflow-hidden shrink-0">
                         <img className="w-full h-full object-cover" src={it.image} alt={it.name} />
                       </div>
                       <div>
@@ -242,13 +242,13 @@ export default function OrderPage() {
             .map((item) => (
               <div
                 key={item.id}
-                className="group relative bg-surface-container-low rounded-[1rem] p-4 transition-all duration-300 hover:bg-surface-container-high"
+                className="group relative bg-surface-container-low rounded-[32px] p-4 transition-all duration-300 hover:bg-surface-container-high"
               >
                 <div className="flex gap-4">
                   <div className="relative w-32 h-32 flex-shrink-0">
                     <img
                       alt={item.name}
-                      className="w-full h-full object-cover rounded-xl shadow-2xl group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover rounded-[48px] shadow-2xl group-hover:scale-105 transition-transform duration-500"
                       src={item.image}
                     />
                   </div>
@@ -294,7 +294,7 @@ export default function OrderPage() {
       {/* Sticky Checkout Bar */}
       {cartCount > 0 && (
         <aside className="fixed bottom-24 left-1/2 -translate-x-1/2 w-[90%] max-w-md z-50">
-          <div className="bg-surface-container-high/90 backdrop-blur-2xl rounded-xl p-4 shadow-2xl shadow-black/50 border border-outline-variant/[0.1] flex items-center justify-between">
+          <div className="bg-surface-container-high/90 backdrop-blur-2xl rounded-[48px] p-[17px] shadow-2xl shadow-black/50 border border-outline-variant/[0.1] flex items-center justify-between">
             <div className="flex flex-col">
               <span className="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-label font-bold">
                 Total Estimate

@@ -45,14 +45,14 @@ export default function SuccessPage() {
               </span>
             </div>
           </div>
-          <h2 className="text-4xl font-headline font-extrabold tracking-tight mb-2">Order Confirmed!</h2>
-          <p className="text-on-surface-variant font-body">Your feast is being prepared with care.</p>
+          <h2 className="text-[36px] font-headline font-extrabold tracking-[-0.9px] mb-2">Order Confirmed!</h2>
+          <p className="text-on-surface-variant font-body text-[16px]">Your feast is being prepared with artistry.</p>
         </div>
 
         {/* The Premium Receipt Card */}
-        <div className="w-full bg-surface-container-low rounded-[1rem] p-1 relative overflow-hidden shadow-2xl">
-          <div className="absolute inset-0 border border-outline-variant/[0.1] rounded-[1rem] pointer-events-none" />
-          <div className="bg-surface-container-high rounded-[1rem] p-8 relative">
+        <div className="w-full bg-surface-container-low rounded-[32px] p-1 relative overflow-hidden shadow-2xl">
+          <div className="absolute inset-0 border border-outline-variant/[0.1] rounded-[32px] pointer-events-none" />
+          <div className="bg-surface-container-high rounded-[32px] p-8 relative">
             {/* Receipt Header */}
             <div className="flex justify-between items-start mb-10">
               <div>
