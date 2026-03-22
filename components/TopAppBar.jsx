@@ -9,7 +9,7 @@ export default function TopAppBar({ showBack = false, onBack }) {
   return (
     <>
       <header className="fixed top-0 w-full z-50 bg-zinc-950/60 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
-        <div className="flex justify-between items-center px-6 h-16 max-w-2xl mx-auto">
+        <div className="flex justify-between items-center px-4 sm:px-6 h-16 max-w-2xl mx-auto">
           {showBack ? (
             <button
               onClick={onBack}

@@ -38,7 +38,7 @@ export default function SwipeConfirm({ onConfirm, disabled = false }) {
   const progress = getMaxTravel() > 0 ? offsetX / getMaxTravel() : 0;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e] to-transparent z-50">
+    <div className="fixed bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e] to-transparent z-50">
       <div className="max-w-md mx-auto relative group">
         <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         <div

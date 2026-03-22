@@ -119,7 +119,7 @@ export default function HomePage() {
                   width={96}
                   height={96}
                   className="h-24 w-24 rounded-full object-cover rotate-12 shadow-xl transition-transform duration-500 group-hover:rotate-0"
-                  src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=2000&auto=format&fit=crop"
+                  src="/images/photo-1473093295043-cdd812d0e601.webp"
                 />
               </div>
             </div>
@@ -294,7 +294,7 @@ export default function HomePage() {
                 alt="Social post 1"
                 fill
                 className="object-cover"
-                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2000&auto=format&fit=crop"
+                src="/images/photo-1504674900247-0877df9cc836.webp"
               />
               <div className="glass-panel absolute right-2 top-2 rounded-full p-1.5">
                 <span className="material-symbols-outlined text-[16px]">photo_camera</span>
@@ -305,7 +305,7 @@ export default function HomePage() {
                 alt="Social post 2"
                 fill
                 className="object-cover"
-                src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=2000&auto=format&fit=crop"
+                src="/images/photo-1540189549336-e6e99c3679fe.webp"
               />
               <div className="glass-panel absolute right-2 top-2 rounded-full p-1.5">
                 <span className="material-symbols-outlined text-[16px]">videocam</span>
@@ -316,7 +316,7 @@ export default function HomePage() {
                 alt="Social post 3"
                 fill
                 className="object-cover"
-                src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2000&auto=format&fit=crop"
+                src="/images/photo-1555939594-58d7cb561ad1.webp"
               />
               <div className="glass-panel absolute right-2 top-2 rounded-full p-1.5">
                 <span className="material-symbols-outlined text-[16px]">favorite</span>
